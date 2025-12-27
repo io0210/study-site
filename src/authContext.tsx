@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 import {
   User,
   signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth'
@@ -10,7 +12,9 @@ import { auth, googleProvider } from './firebase'
 type AuthContextType = {
   currentUser: User | null
   loading: boolean
-  login: () => Promise<void>
+  loginWithGoogle: () => Promise<void>
+  loginWithEmail: (email: string, password: string) => Promise<void>
+  signUpWithEmail: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
 }
 
@@ -20,11 +24,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const login = async () => {
+  const loginWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider)
     } catch (error) {
-      console.error('ログインエラー:', error)
+      console.error('Googleログインエラー:', error)
+      throw error
+    }
+  }
+
+  const loginWithEmail = async (email: string, password: string) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+    } catch (error) {
+      console.error('メールログインエラー:', error)
+      throw error
+    }
+  }
+
+  const signUpWithEmail = async (email: string, password: string) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password)
+    } catch (error) {
+      console.error('サインアップエラー:', error)
       throw error
     }
   }
@@ -50,7 +72,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const value = {
     currentUser,
     loading,
-    login,
+    loginWithGoogle,
+    loginWithEmail,
+    signUpWithEmail,
     logout,
   }
 
@@ -64,6 +88,7 @@ export function useAuth() {
   }
   return context
 }
+
 
 
 

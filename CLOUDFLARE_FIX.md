@@ -60,3 +60,4 @@
 - **Build output directory**は必ず`dist`を入力
 - プロジェクト名は他の人と被らないものにする
 
+

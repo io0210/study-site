@@ -8,7 +8,7 @@ body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
     sans-serif;
-  background: radial-gradient(circle at top left, #e0f2fe, #fef9c3 40%, #f4f4f5);
+  background: #ffffff;
   color: #111827;
 }
 
@@ -16,12 +16,59 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 24px 16px 16px;
+  padding: 0;
+}
+
+.top-header {
+  background: #e5e7eb;
+  padding: 8px 16px;
+  text-align: center;
+}
+
+.top-header-text {
+  font-size: 0.85rem;
+  color: #4b5563;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .header {
-  max-width: 960px;
-  margin: 0 auto 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.main-title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  flex: 1;
+  text-align: center;
+}
+
+.nav-button {
+  border: 2px solid #1f2937;
+  background: white;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #1f2937;
+  font-weight: 500;
+  transition: all 0.2s ease-out;
+  white-space: nowrap;
+}
+
+.nav-button:hover {
+  background: #f9fafb;
+  transform: translateY(-1px);
 }
 
 .header h1 {
@@ -37,11 +84,78 @@ body {
 
 .main {
   flex: 1;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
+  padding: 0 16px 24px;
+}
+
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.subject-section {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+}
+
+.subject-title {
+  margin: 0 0 16px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+}
+
+.subject-title--shakai {
+  border-bottom-color: #fbbf24;
+  color: #1f2937;
+}
+
+.subject-title--kokugo {
+  border-bottom-color: #ef4444;
+  color: #1f2937;
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-item {
+  border: none;
+  background: transparent;
+  padding: 10px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #374151;
+  text-align: left;
+  border-radius: 8px;
+  transition: all 0.2s ease-out;
+  font-weight: 500;
+}
+
+.category-item:hover {
+  background: #f9fafb;
+  transform: translateX(4px);
+}
+
+.menu-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
 }
 
 .card {
@@ -58,7 +172,8 @@ body {
 }
 
 .tab-list {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   padding: 4px;
   border-radius: 999px;
   background: #e5e7eb;
@@ -68,12 +183,22 @@ body {
 .tab {
   border: none;
   background: transparent;
-  padding: 8px 18px;
+  padding: 8px 16px;
   border-radius: 999px;
   font-size: 0.9rem;
   cursor: pointer;
   color: #4b5563;
   transition: all 0.18s ease-out;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .tab {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
 }
 
 .tab--active {
@@ -186,6 +311,31 @@ body {
 .button--danger:hover:not(:disabled) {
   background: #dc2626;
   box-shadow: 0 12px 28px rgba(239, 68, 68, 0.4);
+}
+
+.button--score {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: white;
+  box-shadow: 0 12px 30px rgba(239, 68, 68, 0.5);
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 16px 32px;
+  animation: pulse 2s infinite;
+}
+
+.button--score:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(239, 68, 68, 0.6);
+  filter: brightness(1.1);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 12px 30px rgba(239, 68, 68, 0.5);
+  }
+  50% {
+    box-shadow: 0 12px 30px rgba(239, 68, 68, 0.8);
+  }
 }
 
 /* クイズ画面 */
@@ -402,6 +552,198 @@ body {
   padding: 24px;
 }
 
+/* 結果画面 */
+.result-page {
+  padding: 0;
+  background: #f3f4f6;
+}
+
+.result-container {
+  display: flex;
+  min-height: 100vh;
+  gap: 0;
+}
+
+.result-main {
+  flex: 1;
+  background: white;
+  border-right: 2px solid #1e40af;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.result-question-block {
+  border: 2px solid #1e40af;
+  border-radius: 8px;
+  padding: 20px;
+  background: white;
+}
+
+.result-question-header {
+  margin-bottom: 16px;
+}
+
+.result-question-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.result-question-text {
+  font-size: 1rem;
+  color: #374151;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.result-answer-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  border: 2px solid #1e40af;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.result-column {
+  border-right: 2px solid #1e40af;
+  background: white;
+}
+
+.result-column:last-child {
+  border-right: none;
+}
+
+.result-column-header {
+  background: #f9fafb;
+  padding: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: center;
+  border-bottom: 2px solid #1e40af;
+}
+
+.result-column-content {
+  padding: 16px;
+  font-size: 0.95rem;
+  color: #374151;
+  min-height: 60px;
+  line-height: 1.6;
+}
+
+.result-column-content--correct {
+  color: #065f46;
+  font-weight: 600;
+}
+
+.result-column-content--wrong {
+  color: #991b1b;
+  font-weight: 600;
+}
+
+.result-column-content--explanation {
+  color: #4b5563;
+}
+
+.result-sidebar {
+  width: 280px;
+  background: #e5e7eb;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.result-sidebar-box {
+  background: white;
+  border: 2px solid #4b5563;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.result-sidebar-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 12px;
+}
+
+.result-sidebar-subject {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.result-sidebar-category {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.result-sidebar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.result-sidebar-button {
+  background: white;
+  border: 2px solid #4b5563;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+
+.result-sidebar-button:hover {
+  background: #f9fafb;
+  transform: translateY(-1px);
+}
+
+.result-sidebar-score {
+  text-align: center;
+}
+
+.result-score-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ef4444;
+  margin-bottom: 8px;
+}
+
+.result-score-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ef4444;
+  margin-bottom: 8px;
+}
+
+.result-score-detail {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.result-sidebar-info {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: center;
+  writing-mode: vertical-rl;
+  margin: 0 auto;
+}
+
 .footer {
   max-width: 960px;
   margin: 16px auto 0;
@@ -413,19 +755,59 @@ body {
 /* スマホ対応 */
 @media (max-width: 768px) {
   .page {
-    padding: 16px 12px 12px;
+    padding: 0;
+  }
+
+  .header {
+    padding: 16px 12px;
   }
 
   .header h1 {
     font-size: 1.5rem;
   }
 
+  .main-title {
+    font-size: 1.4rem;
+  }
+
+  .nav-button {
+    padding: 6px 16px;
+    font-size: 0.85rem;
+  }
+
   .subtitle {
     font-size: 0.85rem;
   }
 
+  .subject-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
   .menu-grid {
     grid-template-columns: 1fr;
+  }
+
+  .result-container {
+    flex-direction: column;
+  }
+
+  .result-sidebar {
+    width: 100%;
+    order: -1;
+  }
+
+  .result-answer-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .result-column {
+    border-right: none;
+    border-bottom: 2px solid #1e40af;
+  }
+
+  .result-column:last-child {
+    border-bottom: none;
   }
 
   .question-text {
@@ -458,11 +840,28 @@ body {
 
 @media (max-width: 480px) {
   .page {
-    padding: 12px 8px 8px;
+    padding: 0;
+  }
+
+  .header {
+    padding: 12px 8px;
+  }
+
+  .main-title {
+    font-size: 1.2rem;
   }
 
   .header h1 {
     font-size: 1.3rem;
+  }
+
+  .header-nav {
+    flex-wrap: wrap;
+  }
+
+  .nav-button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
   }
 
   .card {
