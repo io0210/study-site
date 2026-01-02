@@ -862,7 +862,7 @@ function App() {
           >
             マイページ
           </button>
-          <h1 className="main-title">(タイトル)</h1>
+          <h1 className="main-title">新聞を利用した学習サイト</h1>
           {loading ? (
             <button type="button" className="nav-button" disabled>
               読み込み中...
@@ -882,8 +882,8 @@ function App() {
               onClick={async () => {
                 try {
                   await loginWithGoogle()
-                } catch (error) {
-                  alert('ログインに失敗しました')
+                } catch (error: any) {
+                  alert(error.message || 'ログインに失敗しました')
                 }
               }}
             >

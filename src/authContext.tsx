@@ -27,8 +27,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const loginWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider)
-    } catch (error) {
+    } catch (error: any) {
       console.error('Googleログインエラー:', error)
+      // エラーメッセージをより分かりやすく
+      if (error.code === 'auth/popup-blocked') {
+        throw new Error('ポップアップがブロックされました。ブラウザの設定でポップアップを許可してください。')
+      } else if (error.code === 'auth/popup-closed-by-user') {
+        throw new Error('ログインウィンドウが閉じられました。')
+      } else if (error.code === 'auth/unauthorized-domain') {
+        throw new Error('このドメインは認証に使用できません。Firebase Consoleでドメインを追加してください。')
+      } else if (error.code === 'auth/operation-not-allowed') {
+        throw new Error('Google認証が有効化されていません。Firebase Consoleで設定を確認してください。')
+      }
       throw error
     }
   }
@@ -36,8 +46,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const loginWithEmail = async (email: string, password: string) => {
     try {
       await signInWithEmailAndPassword(auth, email, password)
-    } catch (error) {
+    } catch (error: any) {
       console.error('メールログインエラー:', error)
+      if (error.code === 'auth/operation-not-allowed') {
+        throw new Error('メール/パスワード認証が有効化されていません。Firebase Consoleで設定を確認してください。')
+      } else if (error.code === 'auth/unauthorized-domain') {
+        throw new Error('このドメインは認証に使用できません。Firebase Consoleでドメインを追加してください。')
+      }
       throw error
     }
   }
@@ -45,8 +60,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signUpWithEmail = async (email: string, password: string) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password)
-    } catch (error) {
+    } catch (error: any) {
       console.error('サインアップエラー:', error)
+      if (error.code === 'auth/operation-not-allowed') {
+        throw new Error('メール/パスワード認証が有効化されていません。Firebase Consoleで設定を確認してください。')
+      } else if (error.code === 'auth/unauthorized-domain') {
+        throw new Error('このドメインは認証に使用できません。Firebase Consoleでドメインを追加してください。')
+      }
       throw error
     }
   }
