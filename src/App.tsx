@@ -1180,15 +1180,15 @@ function App() {
     if (currentQuestionIndex < filteredQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1)
     } else {
-      // すべての問題に答えたら結果画面へ
-      // すべての問題に回答済みか確認
-      const allAnswered = userAnswers.every((answer) => answer !== null)
-      if (allAnswered) {
-        setResultPageIndex(0)
-        setMode('result')
-      } else {
-        alert('すべての問題に回答してください')
-      }
+      // 最後の問題の場合、採点画面へ遷移
+      setResultPageIndex(0)
+      setMode('result')
+    }
+  }
+
+  const handlePreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1)
     }
   }
 
@@ -1222,19 +1222,19 @@ function App() {
   if (mode === 'quiz' && currentQuestion) {
     const selectedAnswer = userAnswers[currentQuestionIndex]
     const isAllAnswered = userAnswers.every((answer) => answer !== null)
-    
-    return (
-      <div className="page">
-        <header className="header">
+
+  return (
+    <div className="page">
+      <header className="header">
           <h1>
             {levelNames[selectedLevel!]}
           </h1>
           <p className="subtitle">
             問題 {currentQuestionIndex + 1} / {filteredQuestions.length}
           </p>
-        </header>
+      </header>
 
-        <main className="main">
+      <main className="main">
           <div className="card quiz-card">
             <h2 className="question-text">{currentQuestion.text}</h2>
 
@@ -1246,34 +1246,53 @@ function App() {
                 }
 
                 return (
-                  <button
+            <button
                     key={index}
-                    type="button"
+              type="button"
                     className={buttonClass}
                     onClick={() => handleAnswerSelect(index)}
                   >
                     {choice}
-                  </button>
+            </button>
                 )
               })}
             </div>
 
-            {selectedAnswer !== null && (
-              <div className="quiz-progress">
-                <p>
-                  回答済み: {userAnswers.filter((a) => a !== null).length} / {filteredQuestions.length}
-                </p>
-                <button
-                  type="button"
-                  className={`button ${currentQuestionIndex < filteredQuestions.length - 1 ? 'button--primary' : 'button--score'}`}
-                  onClick={handleNextQuestion}
-                >
-                  {currentQuestionIndex < filteredQuestions.length - 1
-                    ? '次の問題へ'
-                    : '採点する'}
-                </button>
-              </div>
-            )}
+            <div className="quiz-progress">
+              <p>
+                回答済み: {userAnswers.filter((a) => a !== null).length} / {filteredQuestions.length}
+              </p>
+              <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                {currentQuestionIndex > 0 && (
+            <button
+              type="button"
+                    className="button button--secondary"
+                    onClick={handlePreviousQuestion}
+                  >
+                    ← 前の問題
+            </button>
+                )}
+                {currentQuestionIndex < filteredQuestions.length - 1 ? (
+                  selectedAnswer !== null && (
+                    <button
+                      type="button"
+                      className="button button--primary"
+                      onClick={handleNextQuestion}
+                    >
+                      次の問題へ →
+                    </button>
+                  )
+                ) : (
+                  <button
+                    type="button"
+                    className="button button--score"
+                    onClick={handleNextQuestion}
+                  >
+                    採点する
+                  </button>
+                )}
+          </div>
+            </div>
           </div>
 
           <button
@@ -1297,7 +1316,7 @@ function App() {
             <h1>エラー</h1>
           </header>
           <main className="main">
-            <div className="card">
+          <div className="card">
               <p>結果を表示できませんでした。</p>
               <button
                 type="button"
@@ -1704,8 +1723,8 @@ function App() {
               </p>
             </div>
             <div style={{ display: 'flex', gap: '0.75rem' }}>
-              <button
-                type="button"
+            <button
+              type="button"
                 className="button button--secondary"
                 onClick={() => {
                   setShowAccountModal(false)
@@ -1730,8 +1749,8 @@ function App() {
                 style={{ flex: 1 }}
               >
                 ログアウト
-              </button>
-            </div>
+            </button>
+          </div>
           </div>
         </div>
       )}
@@ -1744,7 +1763,7 @@ function App() {
               <li key={level}>
                 <button
                   type="button"
-                  className={`category-item category-item--level-${level}`}
+                  className="category-item"
                   onClick={() => handleLevelSelect(level)}
                 >
                   {level === 'random' ? 'ランダム' : `▶${levelNames[level]}`}
