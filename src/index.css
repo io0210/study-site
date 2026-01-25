@@ -130,8 +130,10 @@ body {
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
 }
 
 .category-item {
@@ -141,15 +143,46 @@ body {
   font-size: 1rem;
   cursor: pointer;
   color: #374151;
-  text-align: left;
+  text-align: center;
   border-radius: 8px;
   transition: all 0.2s ease-out;
   font-weight: 500;
+  flex: 0 1 auto;
+  min-width: 120px;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.category-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.category-item--level-1::after {
+  background-color: #10b981; /* 緑 */
+}
+
+.category-item--level-2::after {
+  background-color: #fbbf24; /* 黄色 */
+}
+
+.category-item--level-3::after {
+  background-color: #ef4444; /* 赤 */
+}
+
+.category-item--level-random::after {
+  background-color: #3b82f6; /* 青 */
 }
 
 .category-item:hover {
   background: #f9fafb;
-  transform: translateX(4px);
+  transform: translateY(-2px);
 }
 
 .menu-actions {

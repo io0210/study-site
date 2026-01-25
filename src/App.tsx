@@ -337,6 +337,46 @@ const initialQuestions: Question[] = [
     correctAnswer: 2,
     explanation: 'even if は「たとえ〜でも、たとえ〜だとしても」という意味の接続詞である。',
   },
+  {
+    id: 120,
+    level: 1,
+    text: '次のひらがなの漢字を選べ　けんきん',
+    choices: ['献金', '現金', '検金', '権金'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 121,
+    level: 1,
+    text: '次のひらがなの漢字を選べ　じょうせい',
+    choices: ['情勢', '上生', '常生', '定製'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 122,
+    level: 1,
+    text: '次のひらがなの漢字を選べ　けいきょうかん',
+    choices: ['景況感', '経況感', '計況感', '形況感'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 123,
+    level: 1,
+    text: '次のひらがなの漢字を選べ　かんぼつ',
+    choices: ['陥没', '完没', '官没', '観没'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 124,
+    level: 1,
+    text: '次のひらがなの漢字を選べ　こうふきん',
+    choices: ['交付金', '公付金', '工付金', '高付金'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
   // レベル2（標準・応用）
   {
     id: 12,
@@ -733,6 +773,46 @@ const initialQuestions: Question[] = [
     correctAnswer: 1,
     explanation: '世論形成の文脈。',
   },
+  {
+    id: 130,
+    level: 2,
+    text: '次のひらがなの漢字を選べ　まんしんそうい',
+    choices: ['満身創痍', '満心創意', '万身創意', '満身総意'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 131,
+    level: 2,
+    text: '次のひらがなの漢字を選べ　こくどきょうじんか',
+    choices: ['国土強靭化', '国土強人化', '国土強陣化', '国土教人化'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 132,
+    level: 2,
+    text: '次のひらがなの漢字を選べ　そあん',
+    choices: ['素案', '粗案', '祖案', '組案'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 133,
+    level: 2,
+    text: '次のひらがなの漢字を選べ　いいたてむら',
+    choices: ['飯舘村', '飯館村', '飯立村', '飯建村'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 134,
+    level: 2,
+    text: '次のひらがなの漢字を選べ　こうみょう',
+    choices: ['巧妙', '高明', '公明', '光明'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
   // レベル3（発展）
   {
     id: 22,
@@ -955,6 +1035,46 @@ const initialQuestions: Question[] = [
     ],
     correctAnswer: 1,
     explanation: 'influence＝影響を与える。',
+  },
+  {
+    id: 140,
+    level: 3,
+    text: '次のひらがなの漢字を選べ　きうんじょうせい',
+    choices: ['気運醸成', '気運上成', '気運常成', '気運情成'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 141,
+    level: 3,
+    text: '次のひらがなの漢字を選べ　しせいかいかく',
+    choices: ['市政改革', '市制改革', '市正改革', '市政改格'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 142,
+    level: 3,
+    text: '次のひらがなの漢字を選べ　しんりょう',
+    choices: ['診療', '新療', '心療', '進療'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 143,
+    level: 3,
+    text: '次のひらがなの漢字を選べ　ふさい',
+    choices: ['負債', '不在', '不才', '付債'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
+  },
+  {
+    id: 144,
+    level: 3,
+    text: '次のひらがなの漢字を選べ　やくどう',
+    choices: ['躍動', '約動', '薬動', '役動'],
+    correctAnswer: 0,
+    explanation: '漢字の問題',
   },
 ]
 
@@ -1624,7 +1744,7 @@ function App() {
               <li key={level}>
                 <button
                   type="button"
-                  className="category-item"
+                  className={`category-item category-item--level-${level}`}
                   onClick={() => handleLevelSelect(level)}
                 >
                   {level === 'random' ? 'ランダム' : `▶${levelNames[level]}`}
